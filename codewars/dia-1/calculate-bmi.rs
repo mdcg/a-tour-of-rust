@@ -2,6 +2,7 @@
 
 // Minha solução
 fn bmi(weight: u32, height: f32) -> &'static str {
+    // https://doc.rust-lang.org/std/primitive.f32.html#method.powf
     let bmi = (weight as f32 / (height.powf(2f32)));
     if bmi <= 18.5f32 {
         return "Underweight";
