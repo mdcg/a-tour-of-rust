@@ -19,10 +19,10 @@
 ### Tipos Básicos
 
 * Booleanos: `bool` para representar verdadeiro/falso; 
-* Números inteiros sem sinal, para representar números inteiros não negativos: `u8`,  `u32`,  `u64`,  `u128`; 
-* Números inteiros com sinal, para reprensetar números inteiros positivos e negativos: `i8`,  `i32`,  `i64`,  `i128`; 
-* Ponteiros de números inteiros para representar índices e o comprimento de coleções em memória: `usize`,  `isize`; 
-* Números de ponto flutuante: `f32`,  `f64`; 
+* Números inteiros sem sinal, para representar números inteiros não negativos: `u8`,   `u32`,   `u64`,   `u128`; 
+* Números inteiros com sinal, para reprensetar números inteiros positivos e negativos: `i8`,   `i32`,   `i64`,   `i128`; 
+* Ponteiros de números inteiros para representar índices e o comprimento de coleções em memória: `usize`,   `isize`; 
+* Números de ponto flutuante: `f32`,   `f64`; 
 * Tuplas para passar sequências de valores fixos para a pilha: `(value, value, ...)`; 
 * Matriz: Uma coleção de elementos similares com comprimento fixo conhecidos em tempo de compilação; 
 * Slices: Uma coleção de elementos similares com comprimento conhecidos em tempo de execução; 
@@ -31,7 +31,7 @@
 ### Conversão de tipos básicos
 
 * Você deve ser específico ao utilizar valores númericos, pois, por exemplo, você não pode operar um `u8` com um `u32` sem que não aconteça nenhum erro; 
-* Você pode declarar variáveis númericas especificando o tipo logo após o número desejado, por exemplo: `10u8`,  `10u32`,  `10u64`, etc; 
+* Você pode declarar variáveis númericas especificando o tipo logo após o número desejado, por exemplo: `10u8`,   `10u32`,   `10u64`, etc; 
 * Rust permite que você converta tipos numéricos utilizando a palavra reservada `as`, por exemplo: 
 
 ``` rust
@@ -64,7 +64,7 @@ let c = a as u32 + b;
 ### Retorno de múltiplos valores
 
 * Funções também podem devolver múltiplos valores, retornando sempre uma tupla com os mesmos; 
-* elementos da tupla podem ser referenciados pelo seu índice, contudo, ao contrário de matrizes, o acesso aos indices de uma tupla é através do "." (Exemplo: `tup.0`,  `tup.1`, ...); 
+* elementos da tupla podem ser referenciados pelo seu índice, contudo, ao contrário de matrizes, o acesso aos indices de uma tupla é através do "." (Exemplo: `tup.0`,   `tup.1`, ...); 
 * Rust também suporta "desestruturação", onde o retorno múltiplo de uma função, pode ser utilizado para atribuir valores a várias variáveis de uma vez só (Exemplo: `let (a, b) = mult_r(123, 654)`).
 
 ### Retornando nada
@@ -72,3 +72,9 @@ let c = a as u32 + b;
 * É possível criar funções que não retornando absolutamente nada; 
 * Caso não seja especificado nenhum retorno, A função devolverá uma unit (basicamente uma tupla vazia); 
 * Em alguns casos, alguns desenvolvedores podem explicitamente retornar nada, utilizando um `return ()`, mas isso é extremamente incomum.
+
+### Referências interessantes
+
+* [#3 - Basic data types in Rust programming language](https://www.youtube.com/watch?v=n5TRBkbystY)
+* [Data Types](https://doc.rust-lang.org/1.30.0/book/2018-edition/ch03-02-data-types.html)
+* [Rust Language Cheatsheets - Data Types](https://cheats.rs/#basic-types)
