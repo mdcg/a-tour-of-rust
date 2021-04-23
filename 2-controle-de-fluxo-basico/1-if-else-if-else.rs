@@ -1,4 +1,4 @@
-// A ramificação de código em Rusut não otem nenhuma novidade.
+// A ramificação de código em Rust não tem nenhuma novidade.
 
 // Não há parêntesis nas condições! Realmente precisamos deles? Assim a nossa lógica
 // fica mais simples e limpa.

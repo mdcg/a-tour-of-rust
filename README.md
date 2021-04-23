@@ -78,3 +78,35 @@ let c = a as u32 + b;
 * [#3 - Basic data types in Rust programming language](https://www.youtube.com/watch?v=n5TRBkbystY)
 * [Data Types](https://doc.rust-lang.org/1.30.0/book/2018-edition/ch03-02-data-types.html)
 * [Rust Language Cheatsheets - Data Types](https://cheats.rs/#basic-types)
+
+## Dia 3
+
+### if/else if/else
+
+- Condicionais em Rust são similares a qualquer linguagem;
+- Os operadores `==`, `!=`, `<`, `>`, `<=`, `>=`, `!`, `||`, `&&` são permitidos.
+
+### loop
+
+- É possível criar um loop infinito utilizando o `loop`;
+- Para pará-lo, precisa ter uma instrução `break` dentro dele.
+
+### while
+
+- O `while` permite que você estabeleça facilmente uma condição no loop;
+- O loop será executado até que sua condição verificadora seja `false`.
+
+### for
+
+- Qualquer iterador pode ser utilizado com o `for`;
+- Se você utilizar o operador `..`, o `for` irá percorrer do valor inicial até, mas não incluso, o seu valor final;
+- Se você optar pelo uso do operador `..=`, o `for` irá percorrer do valor inicial até o último, inclusive.
+
+### match
+
+- O `match` é o famoso "switch" de outras linguagens;
+- O `match` é exaustivo, então todos os casos serão analisados;
+- Um padrão muito interessante e comum em estruturas no Rust é utilizar a o `match` justamente com desestruturação;
+- Podemos comparar múltiplos valores em uma mesma instrução utilizando `|`;
+- Podemos comparar intervalos utilizando interadores;
+- Podemos vincular uma variável uma correspondência (Por exemplo: `matched_num @ 10..=100 =>`).
