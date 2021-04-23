@@ -110,3 +110,10 @@ let c = a as u32 + b;
 - Podemos comparar múltiplos valores em uma mesma instrução utilizando `|`;
 - Podemos comparar intervalos utilizando interadores;
 - Podemos vincular uma variável uma correspondência (Por exemplo: `matched_num @ 10..=100 =>`).
+
+### Referências interessantes
+
+- [https://stackoverflow.com/questions/23100534/how-to-sum-the-values-in-an-array-slice-or-vec-in-rust](https://stackoverflow.com/questions/23100534/how-to-sum-the-values-in-an-array-slice-or-vec-in-rust)
+-[https://doc.rust-lang.org/std/primitive.slice.html](https://doc.rust-lang.org/std/primitive.slice.html)
+- [https://doc.rust-lang.org/book/ch04-03-slices.html](https://doc.rust-lang.org/book/ch04-03-slices.html)
+- [https://doc.rust-lang.org/std/vec/struct.Vec.html](https://doc.rust-lang.org/std/vec/struct.Vec.html)
