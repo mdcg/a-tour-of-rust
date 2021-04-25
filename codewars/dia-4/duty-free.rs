@@ -7,3 +7,6 @@ fn duty_free(price: i32, discount: i32, holiday_cost: i32) -> i32 {
 }
 
 // Melhor solução
+fn duty_free(price: i32, discount: i32, holiday_cost: i32) -> i32 {
+    holiday_cost *100   / (discount * price)
+}

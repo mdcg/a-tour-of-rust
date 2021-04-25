@@ -121,3 +121,18 @@ let c = a as u32 + b;
 ## Dia 4
 
 Dia de prática no Codewars!
+
+## Dia 5
+
+### Retornando valores de um loop
+
+- É possível retornar um valor através do "break" em um loop!
+- O Rust possui formas particulares de atribuir a uma variável o valor de retorno em um bloco, mas isso será descrito no próximo capítulo.
+
+### Retornando valores de um bloco de código
+
+- Se a última instrução de um `if`, `match`, função ou bloco de código for uma expressão sem `;`,
+ o Rust vai retorná-la como valor de um bloco;
+ - Essa é uma maneira muito legal de trabalhar com uma "lógica concisa" que retorna um valor que pode ser atribuído a uma nova variável;
+ - O operador ternário em Rust é feito utilizando essa lógica.
+ 
