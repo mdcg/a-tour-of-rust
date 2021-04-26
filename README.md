@@ -136,3 +136,30 @@ Dia de prática no Codewars!
  - Essa é uma maneira muito legal de trabalhar com uma "lógica concisa" que retorna um valor que pode ser atribuído a uma nova variável;
  - O operador ternário em Rust é feito utilizando essa lógica.
  
+ ## Dia 6
+
+ ### Estruturas
+
+ - Uma struct nada mais é que uma coleção de dados;
+ - Um campo é um valor associado a uma struct, que pode ser tipos primitivos ou até mesmo outras structs;
+ - Sua definição é um modelo para o compilador organizar os campos de maneira próximas na memória;
+
+ ### Chamando métodos
+
+ - Temos duas formas de "chamar métodos". Isso vai depender do tipo de método que estamos trabalhando, que pode ser ou métodos estáticos ou métodos de instância;
+ - Métodos estáticos estão associados a um tipo, e são chamados utilizando o operador `::` (Exemplo: `String::from("olá, ferris")`);
+ - Métodos de instância por sua vez estão associados a uma instância de um tipo. Eles são chamados utilizando o operador `.`.
+ 
+ ### Criando dados na memória
+
+ - Quando instanciamos uma struct, o compilador cria os campos associados lado-a-lado na memória;
+ - Nós instanciamos uma struct informando todos os valores dentro dela (Exemplo: `StructExample {...}`);
+ - Textos entre aspas são somente leitura, por isso, são colocados na região da memória de dados;
+ - Uma chamada, por exemplo `String::from("Teste")` cria uma instância que é colocada na pilha lado-a-lado dos campos pertencentes à struct principal;
+ - Como um `String::from("Teste")` cria um texto que pode ser alterado, então ele aloca o texto na memória heap, e também, armazena no heap uma referência a esse mesmo local e depois armazena também no `struct String` (Parece um pouco complicado, e é mesmo, haha);
+ 
+ ### Estuturas tipo Unit
+
+ - É possível criar structs que não tenham campos;
+ - Não é muito usual, mas geralmente quando são criadas esses tipos de structs, nós chamamos ela de "unit-like", pois são muito parecidas com o `()` que é um unit.
+ 
