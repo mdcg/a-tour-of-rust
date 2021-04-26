@@ -163,3 +163,7 @@ Dia de prática no Codewars!
  - É possível criar structs que não tenham campos;
  - Não é muito usual, mas geralmente quando são criadas esses tipos de structs, nós chamamos ela de "unit-like", pois são muito parecidas com o `()` que é um unit.
  
+ ### Referências
+
+- [https://doc.rust-lang.org/std/vec/struct.Vec.html](https://doc.rust-lang.org/std/vec/struct.Vec.html)
+- [https://doc.rust-lang.org/std/primitive.usize.html](https://doc.rust-lang.org/std/primitive.usize.html)
