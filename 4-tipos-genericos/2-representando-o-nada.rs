@@ -1,4 +1,4 @@
-// Em outras linguagens, a palavra-chave null é usada para representar a ausência.
+// Em outras linguagens, a palavra-chave null é usada para representar a ausência
 // de um valor. Isso cria dificuldades nas linguagens de programação, porque o nosso
 // programa possa falhar ao interagir com uma variável/campo.
 

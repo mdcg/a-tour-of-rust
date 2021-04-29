@@ -194,3 +194,20 @@ Dia de prática no Codewars!
 * [https://stackoverflow.com/questions/30811107/how-do-i-get-the-first-character-out-of-a-string](https://stackoverflow.com/questions/30811107/how-do-i-get-the-first-character-out-of-a-string)
 * [https://stackoverflow.com/questions/26643688/how-do-i-split-a-string-in-rust](https://stackoverflow.com/questions/26643688/how-do-i-split-a-string-in-rust)
 * [https://doc.rust-lang.org/std/primitive.char.html](https://doc.rust-lang.org/std/primitive.char.html)
+
+## Dia 8
+
+### O que são tipos genéricos
+
+- Tipos genéricos nos permitem definir parcialmente um enum ou uma struct deixando que o compilador defina uma versão definitiva em tempo de compilação;
+- Você pode ajudar o compilador a definir o tipo final explicitamente utilizando o operador "turbofish" (Ex: `Sacola::<i32>`);
+
+### Representando o nada
+
+- Rust não possui valores "nulos", mas não ignora a importância de representar o nada;
+- Para lidar com isso, Rust possui o `None`, que é um tipo "opcional" (na verdade, é um "Option", ler mais [aqui](https://doc.rust-lang.org/std/option/)) para lidar com valores que por ventura podem ser vazios;
+
+
+### Referência
+
+- [https://doc.rust-lang.org/std/option/](https://doc.rust-lang.org/std/option/)
