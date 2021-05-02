@@ -199,15 +199,29 @@ Dia de prática no Codewars!
 
 ### O que são tipos genéricos
 
-- Tipos genéricos nos permitem definir parcialmente um enum ou uma struct deixando que o compilador defina uma versão definitiva em tempo de compilação;
-- Você pode ajudar o compilador a definir o tipo final explicitamente utilizando o operador "turbofish" (Ex: `Sacola::<i32>`);
+* Tipos genéricos nos permitem definir parcialmente um enum ou uma struct deixando que o compilador defina uma versão definitiva em tempo de compilação; 
+* Você pode ajudar o compilador a definir o tipo final explicitamente utilizando o operador "turbofish" (Ex: `Sacola::<i32>`); 
 
 ### Representando o nada
 
-- Rust não possui valores "nulos", mas não ignora a importância de representar o nada;
-- Para lidar com isso, Rust possui o `None`, que é um tipo "opcional" (na verdade, é um "Option", ler mais [aqui](https://doc.rust-lang.org/std/option/)) para lidar com valores que por ventura podem ser vazios;
-
+* Rust não possui valores "nulos", mas não ignora a importância de representar o nada; 
+* Para lidar com isso, Rust possui o `None`, que é um tipo "opcional" (na verdade, é um "Option", ler mais [aqui](https://doc.rust-lang.org/std/option/)) para lidar com valores que por ventura podem ser vazios; 
 
 ### Referência
 
-- [https://doc.rust-lang.org/std/option/](https://doc.rust-lang.org/std/option/)
+* [https://doc.rust-lang.org/std/option/](https://doc.rust-lang.org/std/option/)
+
+## Dia 9
+
+### Option
+
+* Rust possui enumerações genéricas para representarmos valores nulos chamado de `Option`; 
+* Existem dois tipos de valores de `Option`: `None` e `Some`; 
+* Eles são bastante comuns em códigos Rust e bastante elegantes de serem utilizados em conjunto com o `match`.
+
+### Result
+
+* Muito parecido com o `Option` também temos o enumerador `Result`; 
+* `Result` é utilizado mais comumente para representar valores que podem "falhar"; 
+* Existem dois valores de `Result`: `Ok` e `Err`; 
+* Os tipos `Result` são parametrizados com dois tipos diferentes, um que será utilizado em caso de sucesso e outro em caso de erro (Ex: `enum Result<T, E> {Ok(T), Err(E)}` => `Result<i32, String>`).
