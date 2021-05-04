@@ -225,3 +225,51 @@ Dia de prática no Codewars!
 * `Result` é utilizado mais comumente para representar valores que podem "falhar"; 
 * Existem dois valores de `Result`: `Ok` e `Err`; 
 * Os tipos `Result` são parametrizados com dois tipos diferentes, um que será utilizado em caso de sucesso e outro em caso de erro (Ex: `enum Result<T, E> {Ok(T), Err(E)}` => `Result<i32, String>`).
+
+## Dia 10
+
+### Main falível
+
+* O main tem a capacidade de retornar em Rust; 
+* No caso em específico, podemos retornar um `Result` como `Ok` ou `Err`; 
+* Sobre questões de valores, ele não consegue retornar nenhum, geralmente o `Ok` é atribuído como um unit (Usando o `()`) e o `Err` é uma descrição do que aconteceu de errado; 
+
+### Manipulaçao de erros elegantes
+
+* Trabalhar com `Result` no Rust é tão comum que a linguagem possui um operador muito poderoso para trabalhar com ele que é o `?`, por exemplo
+
+``` rust
+// Essa declaração
+do_somenthing_that_might_fail()?
+
+// é equivalente a essa
+match do_somenthing_that_might_fail() {
+    Ok(v) => v,
+    Err(e) => return Err(e),
+}
+```
+
+### Manipulação de erros (Option e Result) deselegante
+
+* Trabalhar com `Option` e `Result` pode ser um pouca chato, contudo, o Rust tem implementado um método para você obter o valor de `Option` ou `Result` de maneira rápida e "feia" que é o `unwrap`; 
+* Se a enumeração for do tipo `None` ou `Err`, teremos um `panic`.
+
+``` rust
+// Essa declaração
+my_option.unwrap()
+
+// é equivalente a essa
+match my_option {
+    Some(v) => v,
+    None => panic!("Alguma mensagem de erro gerada pelo Rust!"),
+}
+```
+
+### Matrizes
+
+* Um dos tipos genéricos mais úteis é o `Vec`; 
+* Ele é utilizado para representar uma matriz, que por sua vez, é uma lista de tamanho variável; 
+* Podemos criar `Vec` de forma explicita (Usando turbofish ou declaração por inferência) ou utilizarmos a macro `vec!`; 
+* Podemos iterar nos dados do `Vec` utilizando um `for`, chamando o método `iter`; 
+* Internamente, o `Vec` é uma struct, mas ele contém uma referência na heap onde estão seus itens; 
+* Inicialmente, um `Vec` começa com uma capacidade padrão. Se essa capacidade aumentar, ele realoca os elementos na heap para ter uma capacidade maior.
