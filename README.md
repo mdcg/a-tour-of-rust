@@ -273,3 +273,11 @@ match my_option {
 * Podemos iterar nos dados do `Vec` utilizando um `for`, chamando o método `iter`; 
 * Internamente, o `Vec` é uma struct, mas ele contém uma referência na heap onde estão seus itens; 
 * Inicialmente, um `Vec` começa com uma capacidade padrão. Se essa capacidade aumentar, ele realoca os elementos na heap para ter uma capacidade maior.
+
+### Referências
+
+- [https://stackoverflow.com/questions/43983414/how-to-convert-a-rust-char-to-an-integer-so-that-1-becomes-1](https://stackoverflow.com/questions/43983414/how-to-convert-a-rust-char-to-an-integer-so-that-1-becomes-1)
+- [https://doc.rust-lang.org/std/vec/struct.Vec.html#method.reverse](https://doc.rust-lang.org/std/vec/struct.Vec.html#method.reverse)
+- [https://doc.rust-lang.org/book/ch08-01-vectors.html](https://doc.rust-lang.org/book/ch08-01-vectors.html)
+- [https://doc.rust-lang.org/std/primitive.char.html](https://doc.rust-lang.org/std/primitive.char.html)
+- [https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect)
