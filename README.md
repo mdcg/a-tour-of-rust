@@ -276,8 +276,81 @@ match my_option {
 
 ### Referências
 
-- [https://stackoverflow.com/questions/43983414/how-to-convert-a-rust-char-to-an-integer-so-that-1-becomes-1](https://stackoverflow.com/questions/43983414/how-to-convert-a-rust-char-to-an-integer-so-that-1-becomes-1)
-- [https://doc.rust-lang.org/std/vec/struct.Vec.html#method.reverse](https://doc.rust-lang.org/std/vec/struct.Vec.html#method.reverse)
-- [https://doc.rust-lang.org/book/ch08-01-vectors.html](https://doc.rust-lang.org/book/ch08-01-vectors.html)
-- [https://doc.rust-lang.org/std/primitive.char.html](https://doc.rust-lang.org/std/primitive.char.html)
-- [https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect)
+* [https://stackoverflow.com/questions/43983414/how-to-convert-a-rust-char-to-an-integer-so-that-1-becomes-1](https://stackoverflow.com/questions/43983414/how-to-convert-a-rust-char-to-an-integer-so-that-1-becomes-1)
+* [https://doc.rust-lang.org/std/vec/struct.Vec.html#method.reverse](https://doc.rust-lang.org/std/vec/struct.Vec.html#method.reverse)
+* [https://doc.rust-lang.org/book/ch08-01-vectors.html](https://doc.rust-lang.org/book/ch08-01-vectors.html)
+* [https://doc.rust-lang.org/std/primitive.char.html](https://doc.rust-lang.org/std/primitive.char.html)
+* [https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect)
+
+## Dia 11
+
+### Propriedade
+
+- Quando instanciamos um tipo e o vinculamos a um nome de variável, criamos um recurso de memória que o compilador Rust validará por toda vida útil;
+- A variável a qual vinculamos o tipo é chamada de "proprietária".
+
+### Gerenciamento de Recursos Baseados em Escopo
+
+- Rust não possui Garbage Collection;
+- Basicamente, o Rust usa o fim do escopo como o lugar para desconstruir e desalocar um recurso;
+- Essa ação é chamada de "drop".
+
+### O Descarte é hierárquico
+
+- Quando criamos uma struct, no momento que ela é descartada, a struct pai é dropada primeiro, depois seus filhos são dropados individualmente, e assim por diante;
+
+### Movendo a Propriedade
+
+- Quando um proprietário é passado como argumento para uma função, a propriedade é movida para o parâmetro da função;
+- Após esse movimento, a variável na função original não pode mais ser usada.
+
+### Retornando a Propriedade
+
+- A propriedade também pode ser retornada de uma função.
+
+### Emprestando Propriedades com Referências
+
+- As referências nos permitem emprestar o acesso a um recurso com o operador `&`;
+
+### Emprestando Propriedades Mutáveis usando Referências
+
+- Também podemos emprestar acesso mutável a um recurso usando o operador `&mut`;
+- O proprietário de um recurso não pode ser movido ou modificado durante o empréstimo mutável.
+
+### Desreferenciando
+
+- Usando referências, podemos definir o valor do proprietário usando o operador `*`;
+- Também há a possibilidade de obter um cópia do valor de propriedade usando o mesmo operador;
+
+### Passando dados emprestados
+
+- O Rust permite que haja apenas uma referência mutável **ou** múltiplas referências não-mutáveis, **mas não ambas**;
+- Uma referência nunca deve viver mais do que o seu proprietário.
+
+### Referências de Referências
+
+- Referências podem ser usadas até mesmo em pedaços de referências.
+
+### Tempo de vida explícito
+
+- Funções podem ser explícitas parametrizando a assinatura da função com símbolos que ajudam a identificar quais parâmetros e valores de retorno compartilham o mesmo tempo de vida;
+- Os especificadores de tempo de vida sempre começam com um `'` (Ex: `'a`, `'b`, `'c`).
+
+
+### Tempo de Vida Múltiplos
+
+- Os especificadores de tempo de vida nos permitem sermos explícitos em certos cenários que o compilador não pode resolver sozinho;
+- Podemos distinguir todos os tempos de vida dos componentes na assinatura da função.
+
+### Tempo de Vida Estático
+
+- Uma variável estática é um recurso de memória criado em tempo de compilação que existe do início ao fim dentro de um programa;
+- Devem ser especificados explicitamente;
+- Em outras palavras, esse tipo de recurso dura indefinidamente até o término do programa;
+- Para especificá-lo, usamos `'static`;
+- Se algum recurso com tempo de vida estático contiver referência, todos deverão ser `'static` (nada menos do que isso viveria tempo suficiente).
+
+### Tempo de Vida em Tipos de Dados
+
+- Da mesma forma que as funções, as structs podem ser parametrizados com especificadores de tempo de vida;
+- Rust valida a estrutura de dados que contém as referências para que nunca dure mais do que os proprietários para os quais as suas referências apontam.
