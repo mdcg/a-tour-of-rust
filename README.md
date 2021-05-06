@@ -360,3 +360,106 @@ match my_option {
 * [https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect)
 * [https://stackoverflow.com/questions/34363984/what-is-vec](https://stackoverflow.com/questions/34363984/what-is-vec)
 * [https://stackoverflow.com/questions/59745873/iterator-collect-issue-with-value-of-type-vecstring-cannot-be-built-from-it](https://stackoverflow.com/questions/59745873/iterator-collect-issue-with-value-of-type-vecstring-cannot-be-built-from-it)
+
+## Dia 12
+
+### Literais string
+
+* Literais string são sempre Unicode; 
+* O tipo de literais é `&'static str`; 
+* `&` significa que está se referindo a uma posição na memória; 
+* a falta de um `&mut` significa que o compilador não permitirá modificações; 
+* `'static` significa que os dados da string estarão disponíveis até o final da execução do programa; 
+* `str` significa que aponta para uma sequência de bytes utf-8; 
+
+### Caractere de escape
+
+* Rust suporta códigos de escape comuns em linguagens baseadas em C:
+* `\n` - newline; 
+* `\r` - carriage return; 
+* `\\` - backslash; 
+* `\0` - null; 
+* `\'` - single-quote; 
+* Lista completa: [https://doc.rust-lang.org/reference/tokens.html](https://doc.rust-lang.org/reference/tokens.html).
+
+### Literais de string multilinhas
+
+* Por padrão, as strings no Rust são multilinhas; 
+* Use um `\` no final da linha se você não quiser uma quebra de linha.
+
+### Literais de string brutas
+
+* Se você não quiser usar caracteres de escape e criar uma "string bruta", você pode utilizar a sintaxe `r#""#`.
+
+``` rust
+let a: &'static str = r#"
+    <div static="conselho">
+        Strings brutas são úteis para algumas situações.
+    </div>
+"#;
+```
+
+### Literais de string de arquivos
+
+* Se você possui um texto muito grande, considere usar a macro `include_str!`; 
+
+``` rust
+let hello_html = include_str!("hello.html);
+```
+
+### Fatia de string
+
+* Uma fatia de string é uma referência a uma sequência de bytes na memória que de ser um utf-8 válido; 
+* uma subfatia também necessariamente deve ser um utf-8 válido; 
+* `len` obtém o comprimento da string literal em bytes (não o número de caracteres); 
+* `starts_with` / `ends_with` para testes básicos; 
+* `is_empty` retorna true se o comprimento for zero.
+* `find` retorna um `Option<usize>` da primeira posição de um texto.
+
+### Caracteres
+
+* Com tanta dificuldade para trabalhar com Unicode, o Rust oferece uma maneira de recuperar uma sequência de bytes utf-8 como yn vetor de caracteres do tipo `char`; 
+* Um `char` sempre tem 4 bytes de comprimento (permitindo uma busca eficiente de caracteres individuais).
+
+### Strings
+
+* Uma `String` é uma estrutura que contém uma sequência de bytes utf-8 na memória heap; 
+* Como sua memória está na pilha, ela pode ser estendida, modificada, etc, de modo que literais de strings não podem; 
+* `push_str` adiciona mais bytes utf-8 ao final de uma string; 
+* `replace` substitui sequências de bytes utf-8 por outras; 
+* `to_lowercase` / `to_uppercase` para alterações de maiúsculas e minúsculas; 
+* `trim` para cortar espaços; 
+* Quando uma `String` é descartada, sua memória heap também é descartada.
+
+### Texto com parâmetros de função
+
+* Tanto `Strings` quando literais de strings são passados como uma fatia para funções; 
+
+``` rust
+fn gritar(msg: &str) {
+    println!("{}!!!", msg.to_string().to_uppercase());
+}
+
+gritar("olá");
+gritar(&String::from("adeus"));
+```
+
+### Criando strings
+
+* O `concat` e o `join` são duas maneiras simples de criar strings.
+
+``` rust
+let olamundo = ["olá", " ", "mundo", "!"].concat();
+let abc = ["a", "b", "c"].join(",");
+```
+
+### Formatando strings
+
+* A macro `format!` nos permite criar uma string definindo uma string parametrizada com espaços reservados para onde e como os valores devem ser colocados (Ex: `{}`); 
+* O `format!` usa as mesmas strings que `println!`; 
+* Você pode ler mais sobre esse tipo de recurso em [https://doc.rust-lang.org/std/fmt/](https://doc.rust-lang.org/std/fmt/).
+
+### Converter strings
+
+* Muitos tipos podem ser convertidos em uma string usando o `to_string`; 
+* A função genérica `parse` é usada para converter strings ou literais de strings em um valor digitado. Esta função retorna um `Result` porque pode falhar (Ex: `"123".parse::<i32>()?; `).
