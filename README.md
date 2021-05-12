@@ -468,14 +468,14 @@ let abc = ["a", "b", "c"].join(",");
 
 ### Encapsulamento de Dados
 
-- Uma das principais caracteristicas da POO é o "encapsulamento";
-- Rust suporta o conceito de "objeto", que é uma estrutura associada a algumas funções;
-- As chamadas de métodos é bastante parecida com linguagens como Python e JS;
-- O primeiro parâmetro de qualquer método é sempre uma referência à instância associada à chamada do método (`instanceOfObj.foo()`);
-- Temos algumas particularidades com o "self" no Rust: `&self` referência imutável da instância, `&mut self` referência mutável da instância;
-- Todos os métodos são definidos dentro de um bloco de implementação com a palavra-chave `impl`;
+* Uma das principais caracteristicas da POO é o "encapsulamento"; 
+* Rust suporta o conceito de "objeto", que é uma estrutura associada a algumas funções; 
+* As chamadas de métodos é bastante parecida com linguagens como Python e JS; 
+* O primeiro parâmetro de qualquer método é sempre uma referência à instância associada à chamada do método (`instanceOfObj.foo()`); 
+* Temos algumas particularidades com o "self" no Rust: `&self` referência imutável da instância,  `&mut self` referência mutável da instância; 
+* Todos os métodos são definidos dentro de um bloco de implementação com a palavra-chave `impl`; 
 
-```rust
+``` rust
 impl MinhaStruct {
     ...
     fn foo(&self) {
@@ -486,18 +486,18 @@ impl MinhaStruct {
 
 ### Abstração com exposição seletiva
 
-- Rust implementa um esquema bastante comum de "privacidade" de métodos/propriedades;
-- Por padrão, os campos dos métodos são acessíveis apenas ao módulo ao qual pertencem;
-- A palavra-chave `pub` pode ser utilizada em campos e métodos de uma struct para expô-los fora da visibilidade do módulo.
+* Rust implementa um esquema bastante comum de "privacidade" de métodos/propriedades; 
+* Por padrão, os campos dos métodos são acessíveis apenas ao módulo ao qual pertencem; 
+* A palavra-chave `pub` pode ser utilizada em campos e métodos de uma struct para expô-los fora da visibilidade do módulo.
 
 ### Polimorfismo
 
-- Rust suporta o polimorfismo com traits;
-- As traits nos permitem associar um conjunto de métodos a um tipo struct;
-- Quando uma struct implementa uma trait, ela estabelece um "contrato" que nos permite interagir indiretamente com a struct por meio tipo da trait;
-- Os métodos da trait implementados na struct são definidos dentro de um bloco de implementação.
+* Rust suporta o polimorfismo com traits; 
+* As traits nos permitem associar um conjunto de métodos a um tipo struct; 
+* Quando uma struct implementa uma trait, ela estabelece um "contrato" que nos permite interagir indiretamente com a struct por meio tipo da trait; 
+* Os métodos da trait implementados na struct são definidos dentro de um bloco de implementação.
 
-```rust
+``` rust
 trait MinhaTrait {
     fn foo(&self);
     ...
@@ -513,41 +513,41 @@ impl MinhaTrait for MinhaStruct {
 
 ### Métodos implementados nas traits
 
-- As traits também podem ter métodos implementados;
-- As funções não tem acesso direto aos campos internos de uma struct, mas podem ser úteis para compartilhar comportamentos entre muitos implementadores de traits;
+* As traits também podem ter métodos implementados; 
+* As funções não tem acesso direto aos campos internos de uma struct, mas podem ser úteis para compartilhar comportamentos entre muitos implementadores de traits; 
 
 ### Herença de traits
 
-- As traits podem herdar métodos de outras traits.
+* As traits podem herdar métodos de outras traits.
 
 ### Dispatch dinâmico X estático
 
-- Métodos são executados de duas maneiras diferentes;
-- Quando o tipo da instância é conhecido, temos conhecimento direto de qual função chamar (`static dispatch`);
-- Quando o tipo da instância não é conhecido precisamos descobrir uma maneira de chamar a função correta (`dynamic dispatch`);
-- os tipos de trait `&dyn MinhaTrait` nos dá a habilidade de trabalharmos com instâncias de objetos indiretamente usando o dynamic dispatch;
-- Quando um dynamic dispatch é usado, o Rust irá encorajar a colocar o `dyn` and do seu tipo trait.
+* Métodos são executados de duas maneiras diferentes; 
+* Quando o tipo da instância é conhecido, temos conhecimento direto de qual função chamar (`static dispatch`); 
+* Quando o tipo da instância não é conhecido precisamos descobrir uma maneira de chamar a função correta (`dynamic dispatch`); 
+* os tipos de trait `&dyn MinhaTrait` nos dá a habilidade de trabalharmos com instâncias de objetos indiretamente usando o dynamic dispatch; 
+* Quando um dynamic dispatch é usado, o Rust irá encorajar a colocar o `dyn` and do seu tipo trait.
 
 ### Objetos trait
 
-- Quando passamos uma instância de um objeto para um parâmetro do tipo `&dyn MinhaTrait`, passamos o que é chamado de "objeto trait";
-- Um objeto trait nos permite chamar indiretamente os métodos corretos de uma instância.
+* Quando passamos uma instância de um objeto para um parâmetro do tipo `&dyn MinhaTrait`, passamos o que é chamado de "objeto trait"; 
+* Um objeto trait nos permite chamar indiretamente os métodos corretos de uma instância.
 
 ### Manipulando dados não dimensionados
 
-- As traits introduzem um desafio interessante quando queremos armazená-las em outra struct;
-- As traits obscurecem a struct original, portanto, tanbém obscurecem o tamanho original;
-- Os valores não dimensionados armazenados em structs são tratados de duas maneiras;
-- Usando tipos parametrizados cria efetivamente tipos conhecidos de structs/funções, dito isso, tamanhos conhecidos (`generics`);
-- Colocando instâncias no heap fornece um contorno que permite que não nos preocupemos com o tamanho do tipo atual e apenas armazenemos um ponteiro nele (`indirection`);
+* As traits introduzem um desafio interessante quando queremos armazená-las em outra struct; 
+* As traits obscurecem a struct original, portanto, tanbém obscurecem o tamanho original; 
+* Os valores não dimensionados armazenados em structs são tratados de duas maneiras; 
+* Usando tipos parametrizados cria efetivamente tipos conhecidos de structs/funções, dito isso, tamanhos conhecidos (`generics`); 
+* Colocando instâncias no heap fornece um contorno que permite que não nos preocupemos com o tamanho do tipo atual e apenas armazenemos um ponteiro nele (`indirection`); 
 
 ### Funções Genéricas
 
-- Os genéricos no Rust trabalham lado a lado com as traits;
-- Quando descrevemos um tipo parametrizado `T`, podemos restringir quais tipos pode sem usados como argumento listando as traits necessárias que o argumento deve implementar;
-- Usando genéricos criamos funções tipadas estáticas em tempo de compilação que terão tipos e tamanhos conhecidos.
+* Os genéricos no Rust trabalham lado a lado com as traits; 
+* Quando descrevemos um tipo parametrizado `T`, podemos restringir quais tipos pode sem usados como argumento listando as traits necessárias que o argumento deve implementar; 
+* Usando genéricos criamos funções tipadas estáticas em tempo de compilação que terão tipos e tamanhos conhecidos.
 
-```rust
+``` rust
 fn minha_funcao<T>(foo: T)
 where
     T:Foo
@@ -558,9 +558,9 @@ where
 
 ### Funções Genéricas Abreviadas
 
-- Podemos abreviar a sintaxe de função genérica.
+* Podemos abreviar a sintaxe de função genérica.
 
-```rust
+``` rust
 fn main_funcao(foo: impl Foo) {
     ...
 }
@@ -568,20 +568,20 @@ fn main_funcao(foo: impl Foo) {
 
 ### Box
 
-- `Box` é uma estrutura de dados que permite mover nossos dados da stack para a heap;
-- `Box` é uma estrutura conhecida como "ponteiro inteligente" que contém o ponteiro dos nossos dados na heap;
-- Ele frequentemente é usado como maneira de armazenar uma referência a algo em uma struct que deve saber o tamanho de seus campos;
-- `Box` é uma struct com tamanho fixo (porque contém apenas um ponteiro);
+* `Box` é uma estrutura de dados que permite mover nossos dados da stack para a heap; 
+* `Box` é uma estrutura conhecida como "ponteiro inteligente" que contém o ponteiro dos nossos dados na heap; 
+* Ele frequentemente é usado como maneira de armazenar uma referência a algo em uma struct que deve saber o tamanho de seus campos; 
+* `Box` é uma struct com tamanho fixo (porque contém apenas um ponteiro); 
 
-```rust
+``` rust
 Box::new(Foo { ... })
 ```
 
 ### Structs Genéricas Revisitada
 
-- structs genéricas também podem ter seus tipos parametrizados restritos por traits
+* structs genéricas também podem ter seus tipos parametrizados restritos por traits
 
-```rust
+``` rust
 struct MinhaStruct<T>
 where
     T: MinhaTrait
@@ -597,5 +597,5 @@ impl<T> MinhaStruct<T> {
 
 ### Referência
 
-- (https://www.youtube.com/watch?v=pTB0EiLXUC8)[https://www.youtube.com/watch?v=pTB0EiLXUC8]
-- (https://dpc.pw/the-faster-you-unlearn-oop-the-better-for-you-and-your-software)[https://dpc.pw/the-faster-you-unlearn-oop-the-better-for-you-and-your-software]
+* (https://www.youtube.com/watch?v=pTB0EiLXUC8)[https://www.youtube.com/watch?v=pTB0EiLXUC8]
+* (https://dpc.pw/the-faster-you-unlearn-oop-the-better-for-you-and-your-software)[https://dpc.pw/the-faster-you-unlearn-oop-the-better-for-you-and-your-software]
