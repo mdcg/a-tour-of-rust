@@ -599,3 +599,23 @@ impl<T> MinhaStruct<T> {
 
 * (https://www.youtube.com/watch?v=pTB0EiLXUC8)[https://www.youtube.com/watch?v=pTB0EiLXUC8]
 * (https://dpc.pw/the-faster-you-unlearn-oop-the-better-for-you-and-your-software)[https://dpc.pw/the-faster-you-unlearn-oop-the-better-for-you-and-your-software]
+
+## Dia 14
+
+### Ponteiros Brutos
+
+* As referências podem ser convertidas em um tipo mais primitivo chamado "ponteiro bruto"; 
+* Muito parecido com um número, ele pode ser copiado e movido com poucas restrições; 
+* Ele é um pouco inseguro, uma vez que o Rust não garante a validade da localização da memória para o qual aponta; 
+* Existem dois tipos de ponteiros brutos; 
+* Um ponteiro bruto para dados do tipo T que nunca deve mudar (`*const T`); 
+* Um ponteiro bruto para dados do tipo T que podem mudar (`*mut T`).
+
+### Operador *
+
+* O operador `*` é uma forma explícita de desreferenciamento de uma referência.
+
+### Operador .
+
+* O operador `.` é usado para acessar campos e métodos de uma referência. Ele funciona de uma maneira mais "sutil"; 
+* O operador `.` desreferencia automaticamente uma sequência de referências.
