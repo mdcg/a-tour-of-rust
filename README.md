@@ -619,3 +619,92 @@ impl<T> MinhaStruct<T> {
 
 * O operador `.` é usado para acessar campos e métodos de uma referência. Ele funciona de uma maneira mais "sutil"; 
 * O operador `.` desreferencia automaticamente uma sequência de referências.
+
+## Dia 15
+
+### Ponteiros inteligentes
+
+* Além da possibilidade de criar referências a dados tipados existentes usando o operador `&`, o Rust nos dá a possibilidade de criar structs "reference-like" chamadas "ponteiros inteligente"; 
+* Podemos pensar nas referências como um tipo que nos dá acesso a outro tipo; 
+* Normalmente os ponteiros inteligentes implementam as traits `Deref`,  `DerefMut` e `Drop` para especificar a lógica do que deve acontecer quando a estrutura é desreferenciada com os operadores `*` e `.`; 
+* O programador é a parte "inteligente" do ponteiro.
+
+### Código inseguro inteligente
+
+* Os ponteiros inteligentes tendem a usar códiga inseguro com bastante frequência; 
+* Uma habilidade primária do código inseguro é o desreferenciamento de um ponteiro bruto; 
+* Basicamente, pegar um ponteiro bruto de uma posição da memória, declarar que "há uma estrutura de dados aqui!" e transformá-lo em um representação de dados que você pode usar (`*const u8` em `u8`, por exemplo); 
+* O Rust não tem como rastrear o significado de cada byte que é gravado na memória; 
+* Justamente por isso, por não dar garantias sobre oq existe em um número arbitrário usado como ponteiro bruto, que colocamos o desreferenciamento em um bloco `unsafe {...}`.
+
+### Amigos familiares
+
+* O `Vec<T>`, por exemplo, é um ponteiro inteligente que simplesmente possui uma região da memória em bytes; 
+* O compilador Rust não tem ideia do que existe nesses bytes; 
+* O ponteiro inteligente interpreta o que significa pegar os itens da região da memória que ele gerencia, mantém o controle de onde os bytes das estruturas de dados começam e terminam e, finalmente, desreferencia um ponteiro bruto para uma estrutura de dados com uma interface ergonômica, limpa e fácil para nós (por exemplo, `my_vec[3]`); 
+* Da mesma forma,  `String` mantém o controle de uma região de memória em bytes, restringe programaticamente o conteúdo escrito nele para ser sempre `utf-8` válido, e ajuda a desreferenciar essa região de memória em um tipo `&str`; 
+* Ambas as estruturas usam desreferenciamento inseguro de ponteiros brutos para fazer seu trabalho.
+
+### Box
+
+* O Box é um ponteiro inteligente que nos permite mover dados da pilha para a heap; 
+* O desreferenciamento nos permite usados os dados alocados na heap ergonomicamente como se fossem do tipo original.
+
+### Revisitando o main falível
+
+* O código Rust pode ter uma infinidade de representações dos erros, mas a biblioteca padrão tem uma trait universal `std::error::Error` para descrever os erros; 
+* Usando um ponteiro inteligente `Box`, podemos usar o tipo `Box<dyn std::error::Error>` como um tipo comum para retornar erros; 
+* Isso nos permite propagarmos um erro na heap e interagir com ele em alto nível sem precisar conhecer um tipo específico; 
+* Podemos substituir o main falível, por por exemplo: `fn main() -> Result<(), Box<dyn std::error:: Error>>`.
+
+### Contanto referências
+
+* O `Rc` é um ponteiro inteligente que move os dados da pilha para a heap; 
+* Ele nos permite clonar outros ponteiros inteligentes `Rc` que têm capacidade de imutavelmente tomar emprestado os dados que foram colocados na heap.
+
+### Compartilhando acesso
+
+* O `RefCell` é uma estrutura de dados contêiner comumente mantida por ponteiros inteligentes que obtém dados e nos permite emprestar referências mutáveis e imutáveis para o que está dentro; 
+* Ele evita o abuso do empréstimo aplicando as regras de segurança de memória do Rust em tempo de execução quando você pede emprestado os dados que estão dentro; 
+* **Apenas uma referência mutável ou várias referências imutáveis, mas não ambas**; 
+
+``` rust
+use std::cell::RefCell;
+
+struct Pizza {
+    fatias: u8
+}
+
+impl Pizza {
+    fn comer(&mut self) {
+        println!("mais saborosa na heap!");
+        self.fatias -= 1;
+    }
+}
+
+fn main() {
+    let pizza_cell = RefCell::new(Pizza{fatias:8});
+    
+    {
+        let mut mut_ref_pizza = pizza_cell.borrow_mut();
+        mut_ref_pizza.comer();
+        mut_ref_pizza.comer();
+    }
+
+     let ref_pizza = pizza_cell.borrow();
+     println!("sobraram {} fatias", ref_pizza.fatias);
+}
+```
+
+### Compartilhando entre threads
+
+* o `Mutex` é uma estrutura de dados contêiner comumente mantida por ponteiros inteligentes que recebe os dados e nos permite emprestar referências mutáveis e imutáveis aos dados que estão dentro; 
+* Isso evita o abuso do empréstimo fazendo com que o sistema operacional restrinja o acesso aos dados a apenas uma thread de CPU por vez, bloqueando as outras threads até que a thread original seja concluída com seu empréstimo bloqueado; 
+* Há um ponteiro inteligente especial `Arc` que é idêntico ao `Rc`, exceto pelo uso de incrementos thread-safe de contagens de referências.
+
+### Combinando ponteiros inteligentes
+
+* Os ponteiros inteligentes podem fazer combinações bastante poderosas; 
+* `Rec<Vec<Foo>>` permite a clonagem de vários ponteiros inteligentes que podem pegar emprestado o mesmo vetor de estruturas de dados imutáveis na heap; 
+* `Rc<RefCell<Foo>>` permite a múltiplos ponteiros inteligentes a capacidade de emprestar mutável/imutavelmente a mesma estrutura `Foo`; 
+* `Arc<Mutex<Foo>>` permite que vários ponteiros inteligentes bloqueiem empréstimos mutáveis/imutáveis temporários exclusivamente por thread de CPU.
