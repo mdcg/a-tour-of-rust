@@ -708,3 +708,85 @@ fn main() {
 * `Rec<Vec<Foo>>` permite a clonagem de vários ponteiros inteligentes que podem pegar emprestado o mesmo vetor de estruturas de dados imutáveis na heap; 
 * `Rc<RefCell<Foo>>` permite a múltiplos ponteiros inteligentes a capacidade de emprestar mutável/imutavelmente a mesma estrutura `Foo`; 
 * `Arc<Mutex<Foo>>` permite que vários ponteiros inteligentes bloqueiem empréstimos mutáveis/imutáveis temporários exclusivamente por thread de CPU.
+
+## Dia 16
+
+### Escrevendo um programa
+
+* Um programa possui um módulo raiz em arquivo chamado `main.rs`.
+
+### Escrevendo uma biblioteca
+
+* Uma biblioteca possui um módulo raiz em um arquivo chamado `lib.rs`.
+
+### Referenciando outros módulos e crates
+
+* Os itens nos módulos podem ser referenciados com o seu caminho completo do módulo `std::f64::consts:: PI`; 
+* Uma maneira simples é a palavra-chave `use`. Ela nos permite especificar determinados itens dos módulos que desejamos usar em todo o nosso código sem um caminho completo; 
+* Por exemplo,  `use std::f64::consts::PI` me permite usar apenas o identificador `PI` em minha função principal; 
+* `std` é o crate da biblioteca padrão do Rust que está repleta de dados úteis e funções para interagir com o seu sistema operacional; 
+
+### Referenciando múltiplos itens
+
+* Vários itens podem ser referenciados em um único caminho de módulo assim:
+
+``` rust
+use std::f64::consts::{PI, TAU}
+```
+
+### Criando módulos
+
+* Quando pensamos em código, geralmente imaginamos uma hierarquia de arquivos organizados em diretórios; 
+* O Rust permite criar módulos intimamente relacionados à sua estrutura de arquivos; 
+* Há duas maneiras no Rust de declarar um módulo, por exemplo, um módulo `foo` pode ser representado como: Um arquivo chamado `foo.rs`, um diretório chamado `foo` com um arquivo `mod.rs` dentro.
+
+### Hierarquia de Módulo
+
+* Um módulo pode depender de outro. Para estabelecer uma relação entre um módulo e seu submódulo, você deve escrever no módulo pai: `mod foo; `; 
+* A declaração acima irá procurar por um arquivo chamdo `foo.rs` ou `foo/mod.rs` e irá inserir seu conteúdo dentro de um módulo chamado `foo` neste escopo.
+
+### Módulo embutido
+
+* Um submódulo pode ser embutido diretamente no código de um módulo; 
+* Um uso muito comum para módulos embutidos é a criação de testes unitários; 
+* Criamos um módulo embutido que só existe quando Rust é usado para tests!
+
+``` rust
+// Esta macro remove este módulo embutido quando o Rust
+// não está em modo de testes.
+#[cfg(test)]
+mod tests {
+    // Observe que não obtemos acesso imediato
+    // ao módulo pai. Devemos ser explícitos.
+    use super::*;
+
+    // ... os testes vão aqui ...
+}
+```
+
+### Referenciamento interno aos módulos
+
+* O Rust tem vários palavras-chave que você pode usar no seu caminho `use` para obter rapidamente o módulo que deseja:
+* `crate` - O módulo raiz do seu crate; 
+* `super` - O módulo pai do seu módulo corrente; 
+* `self` - O módulo corrente.
+
+### Exportando
+
+* Por padrão, os membros de uma crate não são acessíveis fora da crate (nem mesmo para os seus módulos filhos!); 
+* Tornamos os membros de uma crate acessíveis marcado-os como `pub` no módulo raiz da sua crate (`lib.rs` ou `main.rs`).
+
+### Visibilidade da estrutura
+
+* Assim como as funções, as structs podem declarar o que desejam que seja exposto para fora do seu módulo usando `pub`.
+
+### Prelude
+
+* Nós só temos acesso ao `Vec` ou `Box`, por exemplo, em qualquer lugar sem um `use` para importá-los é por causa do módulo `prelude` da biblioteca padrão; 
+* Saiba que biblioteca padrão do Rust tudo o que é exportado em `std::prelude::*` está automaticamente disponível para todas as partes do Rust.
+
+### Seu próprio prelude
+
+* Por causa do prelude da biblioteca padrão, é usual que a sua biblioteca tenha seu próprio módulo de prelude como ponto de partida de onde os usuários devem importar todas as estruturas de dados mais usuais para usar a sua biblioteca; 
+* Por exemplo, `minha_biblioteca::prelude::*`; 
+* Ele não é usado automaticamente em programas/bibliotecas que usam a sua crate, mas é uma boa convenção a ser seguida para que as pessoas saibam por onde começar.
